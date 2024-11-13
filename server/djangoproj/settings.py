@@ -31,15 +31,15 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     (
-        'https://haydenyau131-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.'
-        'cognitiveclass.ai'
+        'https://haydenyau131-8000.theiadockernext-0-labs-'
+        'prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
     ),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     (
-        'https://haydenyau131-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.'
-        'cognitiveclass.ai'
+        'https://haydenyau131-8000.theiadockernext-0-labs-'
+        'prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
     ),
 ]
 
@@ -103,18 +103,20 @@ DATABASES = {
     }
 }
 
+PASSWORD_VALIDATION_PATH = 'django.contrib.auth.password_validation.'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
+        'NAME': PASSWORD_VALIDATION_PATH + 'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'
+        'NAME': PASSWORD_VALIDATION_PATH + 'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'
+        'NAME': PASSWORD_VALIDATION_PATH + 'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'
+        'NAME': PASSWORD_VALIDATION_PATH + 'NumericPasswordValidator',
     },
 ]
 
