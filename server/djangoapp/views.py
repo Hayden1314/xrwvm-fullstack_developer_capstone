@@ -7,7 +7,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-from .restapis import get_request, analyze_review_sentiments
+from .restapis import get_request, analyze_review_sentiments, post_review
 from .models import CarMake, CarModel
 
 # Get an instance of a logger
@@ -114,19 +114,15 @@ def get_dealer_details(request, dealer_id):
 
 
 def add_review(request):
-    if not request.user.is_anonymous:
+    if(request.user.is_anonymous == False):
+        data = json.loads(request.body)
         try:
-            return JsonResponse({'status': 200})
-        except Exception as e:  # Catching a general exception and logging it
-            logger.error(
-                f"Error in posting review: {str(e)}"
-            )  # Log the error for debugging
-            return JsonResponse(
-                {'status': 401, 'message': 'Error in posting review'}
-            )
+            response = post_review(data)
+            return JsonResponse({"status":200})
+        except:
+            return JsonResponse({"status":401,"message":"Error in posting review"})
     else:
-        return JsonResponse({'status': 403, 'message': 'Unauthorized'})
-
+        return JsonResponse({"status":403,"message":"Unauthorized"})
 
 def get_cars(request):
     count = CarMake.objects.filter().count()
